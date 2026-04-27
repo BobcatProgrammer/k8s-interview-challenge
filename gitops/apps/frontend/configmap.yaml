@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: challenge
+data:
+  nginx.conf: |
+    server {
+        listen 8080;
+
+        location / {
+            return 200 'Congratulations! All services are up and running.\n';
+            add_header Content-Type text/plain;
+        }
+    }

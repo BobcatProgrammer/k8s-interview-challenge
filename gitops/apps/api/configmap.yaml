@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-script
+  namespace: challenge
+data:
+  server.py: |
+    from http.server import HTTPServer, BaseHTTPRequestHandler
+
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self, format, *args):
+            pass  # suppress access logs
+
+        def do_GET(self):
+            if self.path == '/health':
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'OK')
+            elif self.path == '/':
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'Hello from API\n')
+            else:
+                self.send_response(404)
+                self.end_headers()
+                self.wfile.write(b'Not Found\n')
+
+    print('API server listening on :8080', flush=True)
+    HTTPServer(('', 8080), Handler).serve_forever()
