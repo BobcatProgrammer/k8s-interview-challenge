@@ -16,5 +16,4 @@ else
 fi
 
 echo ""
-echo "Flux will reconcile within 30s. To trigger immediately:"
-echo "  ./sync.sh"
+echo "Flux will reconcile within 30s. Or you can force the reconcile yourself"
